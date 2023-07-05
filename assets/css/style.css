@@ -1,5 +1,6 @@
 :root {
     --main-clr: rgb(186, 73, 73);
+    --text-clr: rgba(231, 231, 231, 0.9);
 }
 
 * {
@@ -11,21 +12,53 @@
 body {
     background-color: var(--main-clr);
     transition: background-color .4s ease-in-out;
+    font-family: sans-serif;
+}
+
+h1, h2, h3,
+h4, h5, h6,
+p, a, button {
+    color: var(--text-clr);
+}
+
+a {
+    text-decoration: none;
 }
 
 .wrapper {
     width: 100%;
-    max-width: 1440px;
+    max-width: 650px;
     margin: 0 auto;
-    height: 100vh;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    margin-bottom: 30px;
+}
+.header__link {
+    font-size: 26px;
+    font-weight: bold;
+}
+.header__list {
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.header__list > li{
+    margin-right: 20px;
 }
 
 .buttons-section {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    gap: 30px;
 }
 .btn {
     font-size: 24px;
