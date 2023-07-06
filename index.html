@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pomofocus</title>
+    <script src="https://kit.fontawesome.com/d19fca701a.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
 </head>
 <body>
@@ -13,9 +14,20 @@
     </header>
     <main>
         <section class="buttons-section wrapper">
-            <button class="btn" id="pomodoro" active="true">Pomodoro</button>
-            <button class="btn" id="short-break" active="false">Short Break</button>
-            <button class="btn" id="long-break" active="false">Long Break</button>
+            <button class="btn mode" id="pomodoro" active="true">Pomodoro</button>
+            <button class="btn mode" id="short-break" active="false">Short Break</button>
+            <button class="btn mode" id="long-break" active="false">Long Break</button>
+        </section>
+        <section class="timer wrapper">
+            <div class="timer__count">
+                <p class="minutes" id="minutes"></p>
+                <p>:</p>
+                <p class="seconds" id="seconds"></p>
+            </div>
+            <div class="timer__buttons">
+                <button class="btn" id="start"><i class="fa-solid fa-play"></i></button>
+                <button class="btn" id="reset"><i class="fa-solid fa-arrows-rotate"></i></button>
+            </div>
         </section>
     </main>
     <script src="./assets/js/main.js"></script>

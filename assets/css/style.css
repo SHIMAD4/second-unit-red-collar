@@ -31,6 +31,7 @@ a {
     margin: 0 auto;
 }
 
+
 .header {
     display: flex;
     flex-direction: row;
@@ -54,6 +55,7 @@ a {
     margin-right: 20px;
 }
 
+
 .buttons-section {
     display: flex;
     flex-direction: row;
@@ -71,4 +73,21 @@ a {
     font-weight: bold;
     border: 2px solid rgba(22, 22, 22, 0.4);
     border-radius: 1rem;
+}
+
+.timer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+}
+.timer__count {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+.timer__count > p {
+    font-size: 100px;
 }
