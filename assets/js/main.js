@@ -55,18 +55,17 @@ function clearAttr() {
 
 startButton.addEventListener('click', () => {
     if(pomodoroButton.getAttribute('active') === 'true') {
-        startWork()
+        timerStart(workTime)
     } else if (shortBreakButton.getAttribute('active') === 'true') {
-        startShortBreak()
+        timerStart(shortBreakTime)
     } else if (longBreakButton.getAttribute('active') === 'true') {
-        startLongBreak()
+        timerStart(longBreakTime)
     }
 })
 
-function startWork() {
-    let minutes = workTime - 1
+function timerStart(initialMinutes) {
+    let minutes = initialMinutes - 1
     let seconds = 30
-
     const timerUpdate = () => {
         document.querySelector('#minutes').innerText = minutes < 10 ? `0${minutes}` : minutes;
         document.querySelector('#seconds').innerText = seconds < 10 ? `0${seconds}` : seconds;
@@ -84,16 +83,19 @@ function startWork() {
 
     const handleTimerEnd = () => {
         if (iterationCount === 0 && endWorkCount !== 4) {
-            document.querySelector('#short-break').click()
+            shortBreakButton.click()
+            startButton.click()
             minutes = shortBreakTime
             endWorkCount = endWorkCount + 1
             iterationCount = iterationCount + 1
         } else if (iterationCount >= 1) {
-            document.querySelector('#pomodoro').click()
+            pomodoroButton.click()
+            startButton.click()
             minutes = workTime
             iterationCount = 0
         } else if (endWorkCount === 4) {
-            document.querySelector('#long-break').click()
+            longBreakButton.click()
+            startButton.click()
             minutes = longBreakTime
             endWorkCount = 0
             iterationCount = 1
@@ -107,97 +109,6 @@ function startWork() {
         document.querySelector('#minutes').innerText = `${minutes}`
         document.querySelector('#seconds').innerText = `${seconds}`
     }
-
-    resetButton.addEventListener('click', resetTimer)
-    intervalUpdate = setInterval(timerUpdate, 100)
-}
-function startShortBreak() {
-    let minutes = shortBreakTime - 1
-    let seconds = 30
-    const timerUpdate = () => {
-        document.querySelector('#minutes').innerText = minutes < 10 ? `0${minutes}` : minutes;
-        document.querySelector('#seconds').innerText = seconds < 10 ? `0${seconds}` : seconds;
-
-        if (seconds === 0) {
-            minutes = minutes - 1
-            if (minutes === -1) {
-                handleTimerEnd()
-            }
-            seconds = 30
-        } else {
-            seconds = seconds - 1
-        }
-    }
-    const handleTimerEnd = () => {
-        if (iterationCount === 0 && endWorkCount !== 4) {
-            document.querySelector('#short-break').click()
-            minutes = shortBreakTime
-            endWorkCount = endWorkCount + 1
-            iterationCount = iterationCount + 1
-        } else if (iterationCount >= 1) {
-            document.querySelector('#pomodoro').click()
-            minutes = workTime
-            iterationCount = 0
-        } else if (endWorkCount === 4) {
-            document.querySelector('#long-break').click()
-            minutes = longBreakTime
-            endWorkCount = 0
-            iterationCount = 1
-        }
-    }
-    const resetTimer = () => {
-        clearInterval(intervalUpdate)
-        minutes = shortBreakTime
-        seconds = '00'
-        document.querySelector('#minutes').innerText = `${minutes}`
-        document.querySelector('#seconds').innerText = `${seconds}`
-    }
-
-    resetButton.addEventListener('click', resetTimer)
-    intervalUpdate = setInterval(timerUpdate, 100)
-}
-function startLongBreak() {
-    let minutes = longBreakTime - 1
-    let seconds = 30
-    const timerUpdate = () => {
-        document.querySelector('#minutes').innerText = minutes < 10 ? `0${minutes}` : minutes;
-        document.querySelector('#seconds').innerText = seconds < 10 ? `0${seconds}` : seconds;
-
-        if (seconds === 0) {
-            minutes = minutes - 1
-            if (minutes === -1) {
-                handleTimerEnd()
-            }
-            seconds = 30
-        } else {
-            seconds = seconds - 1
-        }
-    }
-    const handleTimerEnd = () => {
-        if (iterationCount === 0 && endWorkCount !== 4) {
-            document.querySelector('#short-break')
-            minutes = shortBreakTime
-            endWorkCount = endWorkCount + 1
-            iterationCount = iterationCount + 1
-        } else if (iterationCount >= 1) {
-            document.querySelector('#pomodoro')
-            minutes = workTime
-            iterationCount = 0
-        } else if (endWorkCount === 4) {
-            document.querySelector('#long-break')
-            minutes = longBreakTime
-            endWorkCount = 0
-            iterationCount = 1
-        }
-    }
-    const resetTimer = () => {
-        clearInterval(intervalUpdate)
-        minutes = longBreakTime
-        seconds = '00'
-        document.querySelector('#minutes').innerText = `${minutes}`
-        document.querySelector('#seconds').innerText = `${seconds}`
-    }
-
     resetButton.addEventListener('click', resetTimer)
     intervalUpdate = setInterval(timerUpdate, 100)
 }
