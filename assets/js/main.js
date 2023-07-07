@@ -6,22 +6,14 @@
 
 const buttons = document.querySelectorAll('.mode'),
       startButton = document.querySelector('#start'),
-      resetButton = document.querySelector('#reset'),
-      root = document.documentElement
+      resetButton = document.querySelector('#reset')
 
 let workTime = 25,
-    shortBreak = 5,
-    longBreak = 15,
+    shortBreakTime = 5,
+    longBreakTime = 15,
     seconds = '00',
     iterationCount = 0,
     endWorkCount = 0
-
-
-const colors = {
-        'pomodoro': 'rgb(186, 73, 73)',
-        'short-break': 'rgb(56, 133, 138)',
-        'long-break': 'rgb(47, 94, 128)',
-}
 
 window.addEventListener('load', () => {
     document.querySelector('#minutes').innerText = workTime
@@ -56,7 +48,7 @@ function startTimer() {
             if(minutes === -1) {
                 if(iterationCount === 0 && endWorkCount !== 4) {
                     document.querySelector('#short-break').click()
-                    minutes = shortBreak
+                    minutes = shortBreakTime
                     endWorkCount = endWorkCount + 1
                     iterationCount = iterationCount + 1
                 } else if(iterationCount >= 1) {
@@ -65,7 +57,7 @@ function startTimer() {
                     iterationCount = 0
                 } else if (endWorkCount === 4) {
                     document.querySelector('#long-break').click()
-                    minutes = longBreak
+                    minutes = longBreakTime
                     endWorkCount = 0
                     iterationCount = 1
                 }
@@ -75,24 +67,6 @@ function startTimer() {
     }
 
     setInterval(timerUpdate, 100)
-}
-
-function changeTheme(id) {
-    const color = colors[id]
-    switch(id) {
-        case 'pomodoro':
-            root.style.setProperty('--main-clr', color)
-            break
-        case 'short-break':
-            root.style.setProperty('--main-clr', color)
-            break
-        case 'long-break':
-            root.style.setProperty('--main-clr', color)
-            break
-        default:
-            root.style.setProperty('--main-clr', 'rgb(186, 73, 73)')
-            break
-    }
 }
 
 function clearAttr() {
