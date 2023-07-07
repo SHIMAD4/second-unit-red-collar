@@ -23,3 +23,5 @@ function changeTheme(id) {
             break
     }
 }
+
+export default changeTheme
