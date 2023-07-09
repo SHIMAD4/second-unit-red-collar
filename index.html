@@ -17,6 +17,7 @@
             <button class="btn mode" id="pomodoro" active="true">Pomodoro</button>
             <button class="btn mode" id="short-break" active="false">Short Break</button>
             <button class="btn mode" id="long-break" active="false">Long Break</button>
+            <button class="btn" id="settings"><i class="fa-solid fa-gear"></i></button>
         </section>
         <section class="timer wrapper">
             <div class="timer__count">
@@ -30,6 +31,26 @@
                 <button class="btn" id="reset"><i class="fa-solid fa-arrows-rotate"></i></button>
             </div>
         </section>
+        <div class="popup" id="popup">
+            <div class="popup__window">
+                <div class="popup__header">
+                    <h2 class="popup__heading">Pomodoro settings</h2>
+                    <button class="btn" id="close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <form class="popup__form" action="#">
+                    <label for="">
+                        <input type="text" placeholder="Quantity of pomodoro">
+                    </label>
+                    <label for="">
+                        <input type="text" placeholder="Time for a small break">
+                    </label>
+                    <label for="">
+                        <input type="text" placeholder="Time for a long break">
+                    </label>
+                    <button class="btn" type="submit">SAVE</button>
+                </form>
+            </div>
+        </div>
     </main>
     <script type="module" src="./assets/js/theme.js"></script>
     <script type="module" src="./assets/js/main.js"></script>

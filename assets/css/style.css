@@ -1,5 +1,6 @@
 :root {
     --main-clr: rgb(186, 73, 73);
+    --light-main-clr: rgb(205, 100, 100);
     --text-clr: rgba(231, 231, 231, 0.9);
 }
 
@@ -27,7 +28,7 @@ a {
 
 .wrapper {
     width: 100%;
-    max-width: 650px;
+    max-width: 750px;
     margin: 0 auto;
 }
 
@@ -94,4 +95,70 @@ a {
 }
 .timer__count > p {
     font-size: 100px;
+}
+
+.popup {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+.popup-show {
+    display: block;
+}
+
+.popup__window {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 35px;
+    padding-bottom: 10px;
+    transform: translate(-50%, -50%);
+    background-color: var(--light-main-clr);
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.popup__header {
+    display: flex;
+}
+.popup__header > .btn {
+    height: fit-content;
+    position: absolute;
+    top: -2px;
+    right: -15px;
+}
+
+.popup__heading {
+    margin-bottom: 25px;
+}
+
+.popup__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup__form > label > input {
+    display: block;
+    width: 200px;
+    height: 30px;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 7px;
+}
+
+.popup__form > label > input:focus-visible {
+    outline: none;
+    border: 1.5px solid rgb(0, 0, 0);
+}
+
+.popup__form > label:last-child > input {
+    margin-bottom: 0px;
 }

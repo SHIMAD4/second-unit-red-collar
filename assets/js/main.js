@@ -5,6 +5,8 @@
 import changeTheme from './theme.js'
 
 const buttons = document.querySelectorAll('.mode'),
+      settingsButton = document.querySelector('#settings'),
+      closeButton = document.querySelector('#close'),
       startButton = document.querySelector('#start'),
       stopButton = document.querySelector('#stop'),
       resetButton = document.querySelector('#reset'),
@@ -164,4 +166,14 @@ buttons.forEach((button) => {
         timer.minutes = e.target.getAttribute('active') === 'true' ? times[id] : 0
         timer.render()
     })
+})
+
+
+const modal = document.querySelector('#popup')
+settingsButton.addEventListener('click', () => {
+    modal.classList.toggle('popup-show')
+})
+
+closeButton.addEventListener('click', (e) => {
+    modal.classList.remove('popup-show')
 })
