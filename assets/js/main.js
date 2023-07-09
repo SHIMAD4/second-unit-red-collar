@@ -102,6 +102,8 @@ class Timer {
     }
 
     resetTimer() {
+        startButton.style.display = 'inline-block'
+        stopButton.style.display = 'none'
         clearInterval(this.intervalUpdate);
         this.minutes = this.pomodoroButton.getAttribute('active') === 'true' ? workTime :
                        this.shortBreakButton.getAttribute('active') === 'true' ? shortBreakTime :
@@ -111,6 +113,8 @@ class Timer {
     }    
 
     stopTimer() {
+        startButton.style.display = 'inline-block'
+        stopButton.style.display = 'none'
         clearInterval(this.intervalUpdate)
         this.render()
         console.log(this.minutes)
@@ -124,7 +128,11 @@ class Timer {
 }
 
 const timer = new Timer(workTime)
+stopButton.style.display = 'none'
+
 startButton.addEventListener('click', () => {
+    startButton.style.display = 'none'
+    stopButton.style.display = 'inline-block'
     switch (true) {
         case (pomodoroButton.getAttribute('active') === 'true'):
             timer.start()
