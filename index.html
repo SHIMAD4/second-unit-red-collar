@@ -38,15 +38,15 @@
                     <button class="btn" id="close"><i class="fa-solid fa-xmark"></i></button>
                 </div>
                 <form class="popup__form" action="#">
-                    <label for="">
-                        <input type="text" placeholder="Quantity of pomodoro">
-                    </label>
-                    <label for="">
-                        <input type="text" placeholder="Time for a small break">
-                    </label>
-                    <label for="">
-                        <input type="text" placeholder="Time for a long break">
-                    </label>
+                    <label for="pomodoro">Quantity of pomodoro</label>
+                    <input type="number" name="pomodoro" value="" required>
+
+                    <label for="short-break-time">Time for a small break</label>
+                    <input type="number" name="short-break-time" value="" required>
+
+                    <label for="long-break-time">Time for a long break</label>
+                    <input type="number" name="long-break-time" value="" required>
+
                     <button class="btn" type="submit">SAVE</button>
                 </form>
             </div>

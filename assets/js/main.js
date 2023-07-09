@@ -2,7 +2,7 @@
 //  - Опционально: Добавить возможность добавления, удаления и редактирования задач для каждого помодоро.
 //  - Опционально: Добавить возможность отметить задачу выполненной и переключаться на следующую задачу.
 
-import changeTheme from './theme.js'
+import changeTheme from './theme.js';
 
 const buttons = document.querySelectorAll('.mode'),
       settingsButton = document.querySelector('#settings'),
@@ -16,15 +16,35 @@ const buttons = document.querySelectorAll('.mode'),
       minutesDisplay = document.querySelector('#minutes'),
       secondsDisplay = document.querySelector('#seconds')
 
-let workTime = 2
-let shortBreakTime = 3
-let longBreakTime = 4
-let seconds = '00'
+let workTime = 25
+let shortBreakTime = +localStorage.getItem('shortBreakTime') || 5
+let longBreakTime = +localStorage.getItem('longBreakTime') || 15
 
 window.addEventListener('load', () => {
     minutesDisplay.innerText = workTime
-    secondsDisplay.innerText = seconds
+    secondsDisplay.innerText = '00'
 })
+
+
+const modalForm = document.querySelector('.popup__form')
+modalForm.addEventListener('submit', (e) => {
+    e.preventDefault()
+
+    const formData = new FormData(modalForm)
+    let enteredPomodoro = +formData.get('pomodoro')
+    let enteredShortBreakTime = +formData.get('short-break-time')
+    let enteredLongBreakTime = +formData.get('long-break-time')
+
+    let pomodoro = enteredPomodoro >= 0 ? enteredPomodoro : 4
+    shortBreakTime = enteredShortBreakTime >= 0 ? enteredShortBreakTime : 3
+    longBreakTime = enteredLongBreakTime >= 0 ? enteredLongBreakTime : 4
+    localStorage.setItem('pomodoro', pomodoro)
+    localStorage.setItem('shortBreakTime', shortBreakTime);
+    localStorage.setItem('longBreakTime', longBreakTime);
+
+    timer.resetTimer()
+})
+
 
 function clearAttr() {
     buttons.forEach(button => {
@@ -39,6 +59,7 @@ function changeAttr(button) {
     });
 }
 
+
 class Timer {
     constructor(initialMinutes) {
         this.initialMinutes = initialMinutes
@@ -46,7 +67,7 @@ class Timer {
         this.seconds = 59
         this.intervalUpdate = null
         this.iterationCount = 0
-        this.endWorkCount = 0
+        this.endWorkCount = 1
 
         this.minutesDisplay = minutesDisplay
         this.secondsDisplay = secondsDisplay
@@ -65,7 +86,7 @@ class Timer {
     }
 
     start() {
-        this.intervalUpdate = setInterval(this.timerUpdate.bind(this), 100)
+        this.intervalUpdate = setInterval(this.timerUpdate.bind(this), 1000)
     }
 
     timerUpdate() {
@@ -83,35 +104,37 @@ class Timer {
     }
 
     handleTimerEnd() {
-        if (this.iterationCount === 0 && this.endWorkCount !== 4) {
+        const pomodoroCount = +localStorage.getItem('pomodoro') || 4
+    
+        if (this.iterationCount === 0 && this.endWorkCount !== pomodoroCount) {
             changeTheme(shortBreakButton.getAttribute('id'))
             changeAttr(shortBreakButton)
-            this.minutes = shortBreakTime
-            this.endWorkCount = this.endWorkCount + 1
+            this.minutes = shortBreakTime - 1
             this.iterationCount = this.iterationCount + 1
-        } else if (this.iterationCount >= 1) {
+        } else if (this.iterationCount === 1) {
             changeTheme(pomodoroButton.getAttribute('id'))
             changeAttr(pomodoroButton)
             this.minutes = workTime
             this.iterationCount = 0
-        } else if (this.endWorkCount === 4) {
+            this.endWorkCount = this.endWorkCount + 1
+        } else if (this.endWorkCount === pomodoroCount) {
             changeTheme(longBreakButton.getAttribute('id'))
             changeAttr(longBreakButton)
-            this.minutes = longBreakTime
+            this.minutes = longBreakTime - 1
             this.endWorkCount = 0
             this.iterationCount = 1
         }
-    }
+    }    
 
     resetTimer() {
         startButton.style.display = 'inline-block'
         stopButton.style.display = 'none'
-        clearInterval(this.intervalUpdate);
+        clearInterval(this.intervalUpdate)
         this.minutes = this.pomodoroButton.getAttribute('active') === 'true' ? workTime :
                        this.shortBreakButton.getAttribute('active') === 'true' ? shortBreakTime :
-                       this.longBreakButton.getAttribute('active') === 'true' ? longBreakTime : 0;
-        this.seconds = 0;
-        this.render();
+                       this.longBreakButton.getAttribute('active') === 'true' ? longBreakTime : 0
+        this.seconds = 0
+        this.render()
     }    
 
     stopTimer() {
@@ -119,8 +142,6 @@ class Timer {
         stopButton.style.display = 'none'
         clearInterval(this.intervalUpdate)
         this.render()
-        console.log(this.minutes)
-        console.log(this.seconds)
     }
 
     render() {
@@ -128,6 +149,7 @@ class Timer {
         this.secondsDisplay.innerText = this.seconds < 10 ? `0${this.seconds}` : this.seconds
     }
 }
+
 
 const timer = new Timer(workTime)
 stopButton.style.display = 'none'
@@ -160,10 +182,10 @@ buttons.forEach((button) => {
         changeTheme(id)
         clearAttr()
         changeAttr(e.target)
-        timer.resetTimer()
         minutesDisplay.innerText = `${times[id]}`
-        secondsDisplay.innerText = `${seconds}`
+        secondsDisplay.innerText = `${timer.seconds}`
         timer.minutes = e.target.getAttribute('active') === 'true' ? times[id] : 0
+        timer.resetTimer()
         timer.render()
     })
 })
@@ -174,6 +196,6 @@ settingsButton.addEventListener('click', () => {
     modal.classList.toggle('popup-show')
 })
 
-closeButton.addEventListener('click', (e) => {
+closeButton.addEventListener('click', () => {
     modal.classList.remove('popup-show')
 })
