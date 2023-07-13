@@ -6,6 +6,8 @@ class ToDo {
     constructor() {
         this.span = undefined
         this.elem = undefined
+        this.tasks = []
+        this.currentTaskIndex = 0
     }
     addTask() {
         if(input.value === '') {
@@ -30,6 +32,13 @@ class ToDo {
             this.elem.appendChild(editIcon)
             this.elem.appendChild(closeIcon)
             container.appendChild(this.elem)
+
+            const task = {
+                text: input.value,
+                completed: false,
+                pomodoroTaskCount: 0
+            }
+            this.tasks.push(task)
         }
         input.value = ''
         this.saveTasks()
@@ -88,7 +97,7 @@ class ToDo {
     }
 }
 
-const todo = new ToDo()
+export const todo = new ToDo()
 submitButton.addEventListener('click', () => todo.addTask())
 
 container.addEventListener('click', (e) => todo.checkTarget.call(todo, e))
