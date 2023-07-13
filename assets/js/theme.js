@@ -6,7 +6,7 @@ const colors = {
     'long-break': 'rgb(47, 94, 128)',
 }
 
-function changeTheme(id) {
+export function changeTheme(id) {
     const color = colors[id]
     switch(id) {
         case 'pomodoro':
@@ -23,5 +23,3 @@ function changeTheme(id) {
             break
     }
 }
-
-export default changeTheme

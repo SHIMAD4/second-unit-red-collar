@@ -1,8 +1,8 @@
-//  - Опционально: Добавить возможность настройки количества помодоро и времени короткого и длинного перерывов.
 //  - Опционально: Добавить возможность добавления, удаления и редактирования задач для каждого помодоро.
 //  - Опционально: Добавить возможность отметить задачу выполненной и переключаться на следующую задачу.
 
-import changeTheme from './theme.js';
+import { changeTheme } from './theme.js';
+import { changeAttr, clearAttr } from './utils.js';
 
 const buttons = document.querySelectorAll('.mode'),
       settingsButton = document.querySelector('#settings'),
@@ -44,20 +44,6 @@ modalForm.addEventListener('submit', (e) => {
 
     timer.resetTimer()
 })
-
-
-function clearAttr() {
-    buttons.forEach(button => {
-        button.setAttribute('active', 'false')
-    })
-}
-function changeAttr(button) {
-    buttons.forEach((btn) => {
-        const id = btn.getAttribute('id');
-        const isActive = id === button.getAttribute('id');
-        btn.setAttribute('active', isActive ? 'true' : 'false');
-    });
-}
 
 
 class Timer {

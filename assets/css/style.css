@@ -2,6 +2,11 @@
     --main-clr: rgb(186, 73, 73);
     --light-main-clr: rgb(205, 100, 100);
     --text-clr: rgba(231, 231, 231, 0.9);
+    --button-active-clr: rgba(179, 179, 179, 0.9);
+}
+
+::-webkit-scrollbar {
+    width: 0px;
 }
 
 * {
@@ -75,6 +80,9 @@ a {
     border: 2px solid rgba(22, 22, 22, 0.4);
     border-radius: 1rem;
 }
+.btn:active {
+    color: var(--button-active-clr);
+}
 .btn:disabled {
     cursor: not-allowed;
     opacity: .4;
@@ -95,6 +103,67 @@ a {
 }
 .timer__count > p {
     font-size: 100px;
+}
+
+.todo-app {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 70px;
+}
+.todo-app__heading {
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+.todo-app__row {
+    display: flex;
+    margin-bottom: 10px;
+}
+.todo-app__input {
+    padding: 15px;
+    background-color: transparent;
+    border: none;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 1rem;
+    color: var(--text-clr);
+}
+.todo-app__input:focus-visible {
+    outline: none;
+    border-color: rgba(0, 0, 0, 1);
+}
+.todo-app__input::placeholder {
+    color: var(--text-clr);
+}
+.todo-app__container {
+    margin-top: 10px;
+    list-style-type: none;
+    width: 100%;
+    max-width: 600px;
+}
+.todo-app__container__item {
+    margin-bottom: 15px;
+    color: var(--text-clr);
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+}
+.todo-app__container__item > span {
+    width: 100%;
+}
+.todo-app__container__item > .checked {
+    text-decoration: line-through;
+}
+.todo-app__container__item:last-child {
+    margin-bottom: 0;
+}
+.fa-pen-to-square {
+    margin-right: 15px;
 }
 
 .popup {

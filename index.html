@@ -31,6 +31,15 @@
                 <button class="btn" id="reset"><i class="fa-solid fa-arrows-rotate"></i></button>
             </div>
         </section>
+        <section class="todo-app wrapper">
+            <h2 class="todo-app__heading">To-Do list</h2>
+            <div class="todo-app__row">
+                <input class="todo-app__input" type="text" id="input-box" placeholder="Input task...">
+                <button class="btn" id="task-submit-btn">Add task</button>
+            </div>
+            <ul class="todo-app__container" id="container">
+            </ul>
+        </section>
         <div class="popup" id="popup">
             <div class="popup__window">
                 <div class="popup__header">
@@ -52,7 +61,7 @@
             </div>
         </div>
     </main>
-    <script type="module" src="./assets/js/theme.js"></script>
     <script type="module" src="./assets/js/main.js"></script>
+    <script type="module" src="./assets/js/to-do.js"></script>
 </body>
 </html>
