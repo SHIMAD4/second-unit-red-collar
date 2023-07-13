@@ -16,7 +16,7 @@ const buttons = document.querySelectorAll('.mode'),
       minutesDisplay = document.querySelector('#minutes'),
       secondsDisplay = document.querySelector('#seconds')
 
-let workTime = 25
+let workTime = 1
 let shortBreakTime = +localStorage.getItem('shortBreakTime') || 5
 let longBreakTime = +localStorage.getItem('longBreakTime') || 15
 
@@ -39,8 +39,8 @@ modalForm.addEventListener('submit', (e) => {
     shortBreakTime = enteredShortBreakTime >= 0 ? enteredShortBreakTime : 3
     longBreakTime = enteredLongBreakTime >= 0 ? enteredLongBreakTime : 4
     localStorage.setItem('pomodoro', pomodoro)
-    localStorage.setItem('shortBreakTime', shortBreakTime);
-    localStorage.setItem('longBreakTime', longBreakTime);
+    localStorage.setItem('shortBreakTime', shortBreakTime)
+    localStorage.setItem('longBreakTime', longBreakTime)
 
     timer.resetTimer()
 })
@@ -50,7 +50,7 @@ class Timer {
     constructor(initialMinutes) {
         this.initialMinutes = initialMinutes
         this.minutes = this.initialMinutes - 1
-        this.seconds = 59
+        this.seconds = 10
         this.intervalUpdate = null
         this.iterationCount = 0
         this.endWorkCount = 1
@@ -72,7 +72,7 @@ class Timer {
     }
 
     start() {
-        this.intervalUpdate = setInterval(this.timerUpdate.bind(this), 1000)
+        this.intervalUpdate = setInterval(this.timerUpdate.bind(this), 100)
     }
 
     timerUpdate() {
@@ -83,7 +83,7 @@ class Timer {
             if (this.minutes === -1) {
                 this.handleTimerEnd()
             }
-            this.seconds = 59
+            this.seconds = 10
         } else {
             this.seconds = this.seconds - 1
         }
@@ -91,12 +91,14 @@ class Timer {
 
     handleTimerEnd() {
         const pomodoroCount = +localStorage.getItem('pomodoro') || 4
+        const listItem = document.querySelector('.todo-app__container__item')
     
         if (this.iterationCount === 0 && this.endWorkCount !== pomodoroCount) {
             changeTheme(shortBreakButton.getAttribute('id'))
             changeAttr(shortBreakButton)
             this.minutes = shortBreakTime - 1
             this.iterationCount = this.iterationCount + 1
+            if(listItem) listItem.setAttribute('data-executed', '1')
         } else if (this.iterationCount === 1) {
             changeTheme(pomodoroButton.getAttribute('id'))
             changeAttr(pomodoroButton)

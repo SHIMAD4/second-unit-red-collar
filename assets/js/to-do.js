@@ -13,6 +13,7 @@ class ToDo {
         } else {
             this.elem = document.createElement('li')
             this.elem.classList.add('todo-app__container__item')
+            this.elem.setAttribute('data-executed', '0')
             
             let taskText = document.createElement('span')
             taskText.innerText = input.value
@@ -67,7 +68,13 @@ class ToDo {
     }
     checkTarget(e) {
         if(e.target.tagName === 'SPAN') {
-            e.target.classList.toggle('checked')
+            if(e.target.parentNode.getAttribute('data-executed') === '1') {
+                e.target.classList.remove('checked')
+                e.target.parentNode.setAttribute('data-executed', '0')
+            } else {
+                e.target.classList.add('checked')
+                e.target.parentNode.setAttribute('data-executed', '1')
+            }
             todo.saveTasks()
         } else if (e.target.classList.contains('fa-xmark')) {
             e.target.parentElement.remove()

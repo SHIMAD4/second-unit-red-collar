@@ -156,7 +156,8 @@ a {
 .todo-app__container__item > span {
     width: 100%;
 }
-.todo-app__container__item > .checked {
+.todo-app__container__item > .checked,
+.todo-app__container__item[data-executed="1"] > span {
     text-decoration: line-through;
 }
 .todo-app__container__item:last-child {
